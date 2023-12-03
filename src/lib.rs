@@ -1,9 +1,16 @@
-// TODO: Split this into a separate Crate that each day can use
-// Cut-n-Paste until we do that
-// TODO: Refactor into a trait, so we can call methods on the AOCProblem trait here
-//   Then each day, we can add an AOCProblem implementation only
+// TODO: Refactor Days into a trait (AOCProblem), so we can call methods on the AOCProblem trait here
+//   e.g. AOCProblem::handle_line
+//   Add a builder factory that takes the day and returns the proper AOCProblem
+//   Then each day, we can add a new AOCProblem implementation only
+//  Until we do that refactor, we'll just add another line to the matches
 
 use std::{fs, error::Error};
+
+mod day1;
+mod day2;
+
+use day1::Day1;
+use day2::Day2;
 
 pub struct Config {
     // Which day we're doing (1-25)
@@ -65,104 +72,44 @@ pub fn run(config: Config) -> Result<String, Box<dyn Error>> {
     e_filename.push_str(config.day.to_string().as_str());
     e_filename.push_str(".txt");
 
+    println!("Reading file {}", e_filename);
     let contents = fs::read_to_string(e_filename)?;
 
-    let mut day: Day1 = Day1::new();
+    // TODO make this a trait
+    let mut day1: Day1 = Day1::new();
+    let mut day2 = Day2::new();
 
     // TODO: Make an AOC algorithm trait
     for line in contents.lines() {
-        handle_line(line, &config, &mut day);
+        match config.day {
+            1 => day1::handle_line(line, &config, &mut day1),
+            2 => day2::handle_line(line, &config, &mut day2),
+            _ => return Err("Day not yet handled".into()),
+        }
     }
 
     // TODO: Convert to functions on day trait
     match config.variant {
-        false => compute_a(&mut day),
-        true => compute_b(&mut day),
-    };
-
-    Ok(get_result(&day))
-}
-
-// TODO: Make this a trait
-//   Day1 can implement the AOCProblem trait
-struct Day1 {
-    calibration_values: Vec<u32>,
-    sum: u32,
-}
-
-impl Day1 {
-    fn new() -> Day1 {
-        Day1 {
-            calibration_values: Vec::new(),
-            sum: 0,
-        }
-    }
-}
-
-struct ReplacePair<'a> {
-    from: &'a str,
-    to: &'a str,
-}
-
-fn handle_line(line: &str, config: &Config, day: &mut Day1) {    
-    // First and last digits, -1 is uninitialized
-    let mut first: Option<u32> = None;
-    let mut last: Option<u32> = None;
-
-    // May need to edit the line
-    let mut line_str = String::from(line);
-
-    if config.variant {
-        // Part B, we need to substitute some strings for numbers
-        // Of course they'll be tricky with something like "twone"
-        // It's not too bad though, we just need to keep the first and last letters to match with other numbers
-        let mut replace_map: Vec<ReplacePair> = Vec::new();
-        replace_map.push(ReplacePair {from: "one", to: "o1e"});
-        replace_map.push(ReplacePair {from: "two", to: "t2o"});
-        replace_map.push(ReplacePair {from: "three", to: "t3e"});
-        replace_map.push(ReplacePair {from: "four", to: "f4r"});
-        replace_map.push(ReplacePair {from: "five", to: "f5e"});
-        replace_map.push(ReplacePair {from: "six", to: "s6x"});
-        replace_map.push(ReplacePair {from: "seven", to: "s7n"});
-        replace_map.push(ReplacePair {from: "eight", to: "e8t"});
-        replace_map.push(ReplacePair {from: "nine", to: "n9e"});
-       
-        replace_map.iter().for_each(|pair| line_str = line_str.replace(pair.from, pair.to));
-    }
-    
-    println!("Line: {}", line_str);
-
-    for char in line_str.chars() {
-        if char.is_ascii_digit() {
-            let digit = char.to_digit(10).unwrap();
-            if first.is_none() {
-                first = Some(digit);
-                last = Some(digit);
-            } else {
-                last = Some(digit);
+        false => {
+            match config.day {
+                1 => day1::compute_a(&mut day1),
+                2 => day2::compute_a(&mut day2),
+                _ => return Err("Day not yet handled".into()),
             }
         }
+        true => {
+            match config.day {
+                1 => day1::compute_b(&mut day1),
+                2 => day2::compute_b(&mut day2),
+                _ => return Err("Day not yet handled".into()),
+            }
+        }
+    };
+
+    match config.day {
+        1 => Ok(day1::get_result(&day1)),
+        2 => Ok(day2::get_result(&day2)),
+        _ => return Err("Day not yet handled".into()),
     }
-
-    if first == None || last == None {
-        eprintln!("Error on line: {} No digits", line);
-        return;
-    }
-    let cal_value: u32 = first.unwrap() * 10 + last.unwrap();
-    day.calibration_values.push(cal_value);
 }
 
-fn compute_a(day: &mut Day1) {
-    println!("Computing variant a");
-    day.sum = day.calibration_values.iter().sum();
-}
-
-fn compute_b(day: &mut Day1) {
-    println!("Computing variant b");
-    // Computation here is the same as part a
-    compute_a(day);
-}
-
-fn get_result(day: &Day1) -> String {
-    return day.sum.to_string()
-}

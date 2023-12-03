@@ -12,7 +12,7 @@ fn main() {
 
     println!("Executing code for day {} {} on input {}",
         config.day, 
-        if config.variant {"a"} else {"b"}, 
+        if config.variant {"b"} else {"a"}, 
         if config.test_input {"test"} else {"final"});
 
     match day1::run(config) {
