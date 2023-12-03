@@ -63,6 +63,12 @@ impl Config {
     }
 }
 
+pub trait AOCProblem {
+    fn handle_line(&mut self, line: &str, config: &Config);
+    fn compute_a(&mut self) -> String;
+    fn compute_b(&mut self) -> String;
+}
+
 pub fn run(config: Config) -> Result<String, Box<dyn Error>> {
     let mut e_filename = String::new();
     match config.test_input {
@@ -75,41 +81,24 @@ pub fn run(config: Config) -> Result<String, Box<dyn Error>> {
     println!("Reading file {}", e_filename);
     let contents = fs::read_to_string(e_filename)?;
 
-    // TODO make this a trait
-    let mut day1: Day1 = Day1::new();
-    let mut day2 = Day2::new();
-
-    // TODO: Make an AOC algorithm trait
+    // TODO: Make a AOCproblem factory to create these
+    let mut day: Box<dyn AOCProblem>;
+    match config.day {
+        1 => day = Box::new(Day1::new()),
+        2 => day = Box::new(Day2::new()),
+        _ => return Err("Day not yet handled".into()),
+    }
+    
+    // Read the input, pass it to the AOCProblem trait
     for line in contents.lines() {
-        match config.day {
-            1 => day1::handle_line(line, &config, &mut day1),
-            2 => day2::handle_line(line, &config, &mut day2),
-            _ => return Err("Day not yet handled".into()),
-        }
+        (*day).handle_line(line, &config);
     }
 
     // TODO: Convert to functions on day trait
-    match config.variant {
-        false => {
-            match config.day {
-                1 => day1::compute_a(&mut day1),
-                2 => day2::compute_a(&mut day2),
-                _ => return Err("Day not yet handled".into()),
-            }
-        }
-        true => {
-            match config.day {
-                1 => day1::compute_b(&mut day1),
-                2 => day2::compute_b(&mut day2),
-                _ => return Err("Day not yet handled".into()),
-            }
-        }
+    let ret: String = match config.variant {
+        false => (*day).compute_a(),
+        true => (*day).compute_b(),
     };
-
-    match config.day {
-        1 => Ok(day1::get_result(&day1)),
-        2 => Ok(day2::get_result(&day2)),
-        _ => return Err("Day not yet handled".into()),
-    }
+    Ok(ret)
 }
 
