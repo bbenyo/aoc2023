@@ -8,9 +8,11 @@ use std::{fs, error::Error};
 
 mod day1;
 mod day2;
+mod day3;
 
 use day1::Day1;
 use day2::Day2;
+use day3::Day3;
 
 pub struct Config {
     // Which day we're doing (1-25)
@@ -86,6 +88,7 @@ pub fn run(config: Config) -> Result<String, Box<dyn Error>> {
     match config.day {
         1 => day = Box::new(Day1::new()),
         2 => day = Box::new(Day2::new()),
+        3 => day = Box::new(Day3::new()),
         _ => return Err("Day not yet handled".into()),
     }
     
