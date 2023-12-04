@@ -1,4 +1,3 @@
-// TODO: Make this an AOCProblem trait
 use crate::{Config, AOCProblem};
 
 // For now, we'll store only the maximum number of each cube seen in one draw

@@ -1,6 +1,3 @@
-// TODO: Make this a trait
-//   Day1 can implement the AOCProblem trait
-
 use crate::{Config, AOCProblem};
 
 pub struct Day1 {
