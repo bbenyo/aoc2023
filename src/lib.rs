@@ -76,8 +76,8 @@ pub trait AOCProblem {
 pub fn run(config: Config) -> Result<String, Box<dyn Error>> {
     let mut e_filename = String::new();
     match config.test_input {
-        true => e_filename.push_str("test_"),
-        false => e_filename.push_str("final_"),
+        true => e_filename.push_str("data/test/test_"),
+        false => e_filename.push_str("data/final/final_"),
     }
     e_filename.push_str(config.day.to_string().as_str());
     e_filename.push_str(".txt");
@@ -100,7 +100,6 @@ pub fn run(config: Config) -> Result<String, Box<dyn Error>> {
         (*day).handle_line(line, &config);
     }
 
-    // TODO: Convert to functions on day trait
     let ret: String = match config.variant {
         false => (*day).compute_a(),
         true => (*day).compute_b(),
