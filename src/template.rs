@@ -1,7 +1,7 @@
 use crate::{Config, AOCProblem};
 
 pub struct DayN {
-    items: Vec<u32>,
+    items: Vec<u64>,
 }
 
 impl DayN {
@@ -13,7 +13,7 @@ impl DayN {
 }
 
 impl AOCProblem for DayN {
-    fn handle_line(&mut self, line: &str, config: &Config) {
+    fn handle_line(&mut self, line: &str, _config: &Config) {
         let line_str: String = String::from(line);
         let mut line_iter = line_str.split_whitespace();
 
