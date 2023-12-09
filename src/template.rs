@@ -19,7 +19,7 @@ impl AOCProblem for DayN {
 
         for token in line_iter {
             let item = token.parse::<u64>().unwrap();
-            self.items.push(race);
+            self.items.push(item);
         }
     }
     
