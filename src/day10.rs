@@ -240,7 +240,16 @@ impl Day10 {
     //   Draw a line from west to east, count how many times that line crosses the shape boundary
     // From the left, we need to decide if there's an intersection or not
     //   A pipe that is horizontal doesn't intersect a line from the left
-    //   For corners, we'll pick one direction to indicate a switch from in/out (south)
+    //   For a horizontal segment, it crosses the pipe boundery if the corners are opposite (north + south)
+    //                                                      |
+    // ->  +--+   Does not cross into the polygon    ->  +--+  Does cross the polygon boundary
+    //     |  |                                          |
+    //  
+    //   Instead of remembering the last corner, we can pick one direction (north or south) to count
+    //    If both corners are the same (north or south), then we'll either count 0 or 2 crossings
+    //    Either way we end up the same (outside or inside), no crossing or cross and cross back
+    //    If they're different, then we'll count 1 crossing.
+    //   Here we picked south, so F and 7 count as crossing.  Should work fine the other way as well
     fn does_cross_boundary_from_west(&self, pipe: char) -> bool {
         if pipe == '|' || pipe == 'F' || pipe == '7' { return true; }
         return false;
