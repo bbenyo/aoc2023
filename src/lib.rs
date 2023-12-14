@@ -16,6 +16,7 @@ mod day7;
 mod day8;
 mod day9;
 mod day10;
+mod day11;
 
 use day1::Day1;
 use day2::Day2;
@@ -27,6 +28,7 @@ use day7::Day7;
 use day8::Day8;
 use day9::Day9;
 use day10::Day10;
+use day11::Day11;
 
 pub struct Config {
     // Which day we're doing (1-25)
@@ -110,6 +112,7 @@ pub fn run(config: Config) -> Result<String, Box<dyn Error>> {
         8 => day = Box::new(Day8::new()),
         9 => day = Box::new(Day9::new()),
         10 => day = Box::new(Day10::new()),
+        11 => day = Box::new(Day11::new()),
         _ => return Err("Day not yet handled".into()),
     }
     
