@@ -174,14 +174,13 @@ impl Day13 {
 
 impl AOCProblem for Day13 {
     fn handle_line(&mut self, line: &str, _config: &Config) {
-        let line_str: String = String::from(line);
-        if line_str.len() == 0 {
+        if line.len() == 0 {
             // Complete the latest pattern
             let new_pattern = Pattern {board: Vec::new(), horiz_reflect: None, vert_reflect: None};
             self.patterns.push(std::mem::replace(&mut self.cur_pattern, new_pattern));
             return;
         }
-        let row: Vec<char> = line_str.chars().collect();
+        let row: Vec<char> = line.chars().collect();
         self.cur_pattern.board.push(row);
     }
 

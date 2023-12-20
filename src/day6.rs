@@ -51,8 +51,7 @@ impl Day6 {
 
 impl AOCProblem for Day6 {
     fn handle_line(&mut self, line: &str, config: &Config) {
-        let line_str: String = String::from(line);
-        let mut line_iter = line_str.split_whitespace();
+        let mut line_iter = line.split_whitespace();
         // Read times first
         let token = line_iter.next().unwrap();
         if token == "Time:" {

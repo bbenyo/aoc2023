@@ -173,8 +173,7 @@ impl Day12 {
 
 impl AOCProblem for Day12 {
     fn handle_line(&mut self, line: &str, config: &Config) {
-        let line_str: String = String::from(line);
-        let mut line_iter = line_str.split_whitespace();
+        let mut line_iter = line.split_whitespace();
 
         // Two components, initial row and counts
         let mut init_row = line_iter.next().unwrap();

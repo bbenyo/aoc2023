@@ -164,8 +164,7 @@ impl Day17 {
 impl AOCProblem for Day17 {
     fn handle_line(&mut self, line: &str, config: &Config) {
         self.variant = config.variant;
-        let line_str: String = String::from(line);
-        let c_row: Vec<char> = line_str.chars().collect();
+        let c_row: Vec<char> = line.chars().collect();
         let mut row: Vec<u8> = Vec::new();
         for c in c_row {
             row.push(c.to_string().parse::<u8>().unwrap());

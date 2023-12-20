@@ -26,17 +26,15 @@ impl AOCProblem for Day8 {
         if line.len() == 0 {
             return;
         }
-
-        let line_str: String = String::from(line);
         
         if self.instructions.len() == 0 {
-            self.instructions = line_str.chars().collect();
+            self.instructions = line.chars().collect();
             return;
         }
 
         // Drop the = ( , from the string to get
         // Label Left Right
-        let stripped: String = line_str.chars().filter(|c| c.is_whitespace() || c.is_alphanumeric()).collect();
+        let stripped: String = line.chars().filter(|c| c.is_whitespace() || c.is_alphanumeric()).collect();
         let mut line_iter = stripped.split_whitespace();
         // println!("Stripped String: {}", stripped);
         let label = line_iter.next().unwrap();

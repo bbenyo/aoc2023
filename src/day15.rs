@@ -112,8 +112,7 @@ fn hash_char(c: char, val: u64) -> u64 {
 
 impl AOCProblem for Day15 {
     fn handle_line(&mut self, line: &str, _config: &Config) {
-        let line_str: String = String::from(line);
-        let line_iter = line_str.split(',');
+        let line_iter = line.split(',');
         for token in line_iter {
             self.steps.push(String::from(token));
         }

@@ -14,8 +14,7 @@ impl DayN {
 
 impl AOCProblem for DayN {
     fn handle_line(&mut self, line: &str, _config: &Config) {
-        let line_str: String = String::from(line);
-        let mut line_iter = line_str.split_whitespace();
+        let mut line_iter = line.split_whitespace();
 
         for token in line_iter {
             let item = token.parse::<u64>().unwrap();

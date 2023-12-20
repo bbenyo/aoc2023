@@ -42,8 +42,7 @@ impl Day9 {
 
 impl AOCProblem for Day9 {
     fn handle_line(&mut self, line: &str, config: &Config) {
-        let line_str: String = String::from(line);
-        let line_iter = line_str.split_whitespace();
+        let line_iter = line.split_whitespace();
         self.seq_of_seq.clear();
 
         let mut orig_sequence: Vec<i64> = Vec::new();

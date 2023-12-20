@@ -136,7 +136,6 @@ impl AOCProblem for Day5 {
         if line.len() == 0 {
             return;  // Skip empty lines
         }
-
         let line_str: String = String::from(line);
         let first = &line[..1].chars().next().unwrap();
         if first.is_ascii_digit() {

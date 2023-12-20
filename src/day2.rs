@@ -39,8 +39,7 @@ impl AOCProblem for Day2 {
 
     fn handle_line(&mut self, line: &str, _config: &Config) {    
         // Split the line by " "
-        let line_str: String = String::from(line);
-        let mut line_iter = line_str.split(" ");
+        let mut line_iter = line.split(" ");
 
         line_iter.next(); // Game
         let game_id;

@@ -110,8 +110,7 @@ impl Day11 {
 
 impl AOCProblem for Day11 {
     fn handle_line(&mut self, line: &str, _config: &Config) {
-        let line_str: String = String::from(line);
-        let row: Vec<char> = line_str.chars().collect();
+        let row: Vec<char> = line.chars().collect();
         self.board.push(row);
     }
     

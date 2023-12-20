@@ -43,8 +43,7 @@ use std::collections::HashMap;
 
 impl AOCProblem for Day4 {
     fn handle_line(&mut self, line: &str, _config: &Config) {
-        let line_str: String = String::from(line);
-        let mut line_iter = line_str.split_whitespace();
+        let mut line_iter = line.split_whitespace();
 
         line_iter.next(); // Card
         let card_id;

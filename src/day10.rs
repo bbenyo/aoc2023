@@ -303,8 +303,7 @@ impl Day10 {
 
 impl AOCProblem for Day10 {
     fn handle_line(&mut self, line: &str, _config: &Config) {
-        let line_str: String = String::from(line);
-        let row: Vec<char> = line_str.chars().collect();
+        let row: Vec<char> = line.chars().collect();
         // Find is good here since we're assuming ascii strings only, no unicode
         //  So byte position = char index
         let spos = line.find('S');
