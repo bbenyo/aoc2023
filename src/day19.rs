@@ -71,7 +71,7 @@ impl Rule {
 
 #[derive(Debug)]
 struct Workflow {
-    label: String,
+    //label: String,
     rules: Vec<Rule>,
 }
 
@@ -207,7 +207,7 @@ impl AOCProblem for Day19 {
                 };
                 rule_vec.push(rule);
             }
-            let workflow = Workflow{label: label.to_string(), rules: rule_vec};
+            let workflow = Workflow{rules: rule_vec};
             println!("{:?}", &workflow);
             self.workflows.insert(label.to_string(), workflow);
         }   
