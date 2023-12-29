@@ -161,6 +161,9 @@ impl AOCProblem for Day24 {
         let mut pvy: Vec<i64> = Vec::new();
         let mut pvz: Vec<i64> = Vec::new();
 
+        // Inspiration from u/TheZigerionScammer 
+        //  https://www.reddit.com/r/adventofcode/comments/18pnycy/comment/keqf8uq/
+        
         // For two hailstones moving at the same velocity for 1 dimension
         //   The rock we throw must intersect them both at the same velocity
         //   Since velocities are integers, the rock velocity has to evenly divide the 
